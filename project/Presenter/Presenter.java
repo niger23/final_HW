@@ -1,14 +1,12 @@
 package Presenter;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Scanner;
 
+import java.time.LocalDate;
+import java.util.Scanner;
 import Model.*;
 import View.Counter;
 import View.Registry;
 import View.View;
-import Presenter.InputData;
-import Presenter.ParseData;
+
 
 public class Presenter {
     private View view;
@@ -24,15 +22,16 @@ public class Presenter {
             boolean flag = true;
             while(flag) {
                 view.Menu();
-                int menu = Integer.parseInt(in.nextLine());
-                if (menu == 1) view.PrintAnimals(registry.getReestrAnimals());
-                else if (menu == 2) getAddAnimal();
-                else if (menu == 3) getSkillAnimal();
-                else if (menu == 4) setSkillAnimal();
-                else if (menu == 5) deleteAnimal();
+                String menu = in.nextLine();
+                if (menu.equals("1")) view.PrintAnimals(registry.getReestrAnimals());
+                else if (menu.equals("2")) getAddAnimal();
+                else if (menu.equals("3")) getSkillAnimal();
+                else if (menu.equals("4")) setSkillAnimal();
+                else if (menu.equals("5")) deleteAnimal();
+                else System.exit(0);
             }
         } catch (Exception e) {
-            System.out.println("");
+            view.Bad();
         }
     }
     public int getInt() {
@@ -77,7 +76,7 @@ public class Presenter {
                 else if (id == 5) return new Donkey(5, newAnimal[0], dateB);
                 else return new Camel(6, newAnimal[0], dateB);
             } else {
-                view.Bad();
+                view.BadData();
                 return null;
             }
 
@@ -96,7 +95,7 @@ public class Presenter {
             if (animal.getSkills() != null) {
                 System.out.println(animal.getSkills());
             } else {
-                System.out.println((char)27 + "[31mУ этого животного нет умений!" + (char)27 + "[0m");
+                view.BadSkills();
             }
         } else {
             view.BadIndex();

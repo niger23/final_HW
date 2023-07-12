@@ -1,7 +1,5 @@
 package Presenter;
 
-import java.util.Arrays;
-
 import Exception.DataException;
 
 public class ParseData {

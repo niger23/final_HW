@@ -23,8 +23,14 @@ public class View {
     public void BadMenu() {
         System.out.println((char)27 + "[31mНет такого функционала!" + (char)27 + "[0m");
     }
+    public void BadData() {
+        System.out.println((char)27 + "[31mПроизошла ошибка с датой" + (char)27 + "[0m");
+    }
     public void Bad() {
         System.out.println((char)27 + "[31mПроизошла ошибка с датой" + (char)27 + "[0m");
+    }
+    public void BadSkills() {
+        System.out.println((char)27 + "[31mУ этого животного нет умений!" + (char)27 + "[0m");
     }
     public void Bad16() {
         System.out.println((char)27 + "[31mТолько числа от 1 до 6" + (char)27 + "[0m");
