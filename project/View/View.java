@@ -15,19 +15,25 @@ public class View {
         System.out.println("Животное с каким номером выбираем?");
     }
     public void ChoiseAnimalList() {
-        System.out.println("Кого создаём?\n 1 - кот, 2 - собака, 3 - хомяк, \n4 - лощадь, 5 - осёл, 6 - верблюд");
+        System.out.println((char)27 + "[33mКого создаём?\n 1 - кот, 2 - собака, 3 - хомяк, \n4 - лощадь, 5 - осёл, 6 - верблюд" + (char)27 + "[0m");
     }
     public void BadIndex() {
-        System.out.println("Нет такого животного");
+        System.out.println((char)27 + "[31mНет такого животного!" + (char)27 + "[0m");
     }
     public void BadMenu() {
-        System.out.println("Нет такого функционала");
+        System.out.println((char)27 + "[31mНет такого функционала!" + (char)27 + "[0m");
+    }
+    public void Bad() {
+        System.out.println((char)27 + "[31mПроизошла ошибка с датой" + (char)27 + "[0m");
+    }
+    public void Bad16() {
+        System.out.println((char)27 + "[31mТолько числа от 1 до 6" + (char)27 + "[0m");
     }
     public void startCreate() {
-        System.out.println("Введите имя и дату рождения(ГГГГ-ММ-ДД), через пробел");
+        System.out.println("Введите имя и дату рождения(ДД.ММ.ГГГГ), через пробел");
     }
     public void Successfully() {
-        System.out.println("Выполнено успешно!");
+        System.out.println((char)27 + "[32mВыполнено успешно!" + (char)27 + "[0m");
     }
     public void ChoiseSkill() {
         System.out.println("Напишите навык, который добавляем");

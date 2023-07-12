@@ -65,9 +65,9 @@ public abstract class Animals {
 
     @Override
     public String toString() {
-        return " class= " +  getClassName(getIdPets()) + 
+        return (char)27 + "[32m class= " +  getClassName(getIdPets()) + 
             ", name= " + getName() + 
-            ", birthday= " + getBirthday();
+            ", birthday= " + getBirthday() + (char)27 + "[0m";
     }
     
 }

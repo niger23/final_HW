@@ -1,11 +1,14 @@
 package Presenter;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import Model.*;
 import View.Counter;
 import View.Registry;
 import View.View;
+import Presenter.InputData;
+import Presenter.ParseData;
 
 public class Presenter {
     private View view;
@@ -51,27 +54,37 @@ public class Presenter {
     public void getAddAnimal () {
         view.ChoiseAnimalList();
         Scanner in = new Scanner(System.in);
-        int num = Integer.parseInt(in.nextLine());
-        if (num >= 0 & num <= 6) registry.addAnimal(createAnimal(num));
-        else view.BadIndex();
+        try {
+            int num = Integer.parseInt(in.nextLine());
+            if (num >= 0 & num <= 6) registry.addAnimal(createAnimal(num));
+            else view.BadIndex();
+        } catch (Exception e) {
+            view.Bad16();
+        }
 
     }
     public Animals createAnimal(int id) {
         try {
-            view.startCreate();
-            Scanner in = new Scanner(System.in);
-            String input = in.nextLine();
-            String [] name_data = input.split(" ");
-            String [] data = name_data[1].split("-");
-            if (id == 1) return new Cat(1, name_data[0], LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
-            else if (id == 2) return new Dog(2, name_data[0], LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
-            else if (id == 3) return new Hamster(3, name_data[0], LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
-            else if (id == 4) return new Horse(4, name_data[0], LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
-            else if (id == 5) return new Donkey(5, name_data[0], LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
-            else return new Camel(6, name_data[0], LocalDate.of(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
+            InputData newData = new InputData();
+            String[] data = newData.enterData();
+            if(data != null) {
+                String[] newAnimal = ParseData.parsUserInfo(data);
+                LocalDate dateB = LocalDate.of(Integer.parseInt(newAnimal[3]), Integer.parseInt(newAnimal[2]), Integer.parseInt(newAnimal[1]));
+                if (id == 1) return new Cat(1, newAnimal[0], dateB);
+                else if (id == 2) return new Dog(2, newAnimal[0], dateB);
+                else if (id == 3) return new Hamster(3, newAnimal[0], dateB);
+                else if (id == 4) return new Horse(4, newAnimal[0], dateB);
+                else if (id == 5) return new Donkey(5, newAnimal[0], dateB);
+                else return new Camel(6, newAnimal[0], dateB);
+            } else {
+                view.Bad();
+                return null;
+            }
+
         } catch (Exception e) {
-            System.out.println("Введены данные не в нужном формате, создаём тестового питомца");
-            return new Dog(2, "Jack", LocalDate.of(2022,4,25));
+            System.out.println(e);
+            view.Bad();
+            return null;
         }
     }
 
@@ -83,7 +96,7 @@ public class Presenter {
             if (animal.getSkills() != null) {
                 System.out.println(animal.getSkills());
             } else {
-                System.out.println("Нет умений");
+                System.out.println((char)27 + "[31mУ этого животного нет умений!" + (char)27 + "[0m");
             }
         } else {
             view.BadIndex();
